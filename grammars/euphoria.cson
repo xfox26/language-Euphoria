@@ -1,0 +1,198 @@
+patterns: [
+  {
+    name: "constant.numeric.standard.euphoria"
+    match: "\\b[+-]?[0-9_]+\\b"
+  }
+  {
+    name: "constant.numeric.binary.euphoria"
+    match: "\\b0b[0-1_]+\\b"
+  }
+  {
+    name: "constant.numeric.octal.euphoria"
+    match: "\\b0t[0-7_]+\\b"
+  }
+  {
+    name: "constant.numeric.decimal.euphoria"
+    match: "\\b0d[0-9_]+\\b"
+  }
+  {
+    name: "constant.numeric.hex.euphoria"
+    match: "\\b0x[0-9A-Fa-f_]+\\b"
+  }
+  {
+    name: "constant.numeric.hex-old.euphoria"
+    match: "#[0-9A-Fa-f_]+\\b"
+  }
+  {
+    begin: "^\\s*include\\b"
+    name: "meta.preprocessor.include.euphoria"
+    patterns: [
+      {
+        name: "keyword.as.euphoria"
+        match: "\\bas\\b"
+      }
+      {
+        name: "constant.quoted.filename.euphoria"
+        match: "\\b[^ ]+\\b"
+      }
+    ]
+    end: "$"
+  }
+  {
+    name: "constant.quoted.namespace.euphoria"
+    match: "\\b[a-zA-Z_][A-Za-z0-9_]*:"
+  }
+  {
+    name: "meta.preprocessor.euphoria"
+    match: "\\b(end ifdef|elsifdef|elsedef|ifdef|namespace|trace|with|without)\\b"
+  }
+  {
+    captures:
+      "4":
+        name: "entity.name.function.euphoria"
+    name: "keyword.control.euphoria"
+    match: "^\\s*(deprecate\\s+)?((override|global|public|export)\\s+)?(function|procedure|type|routine)\\s*([a-zA-Z_][a-zA-Z0-9_]*)"
+  }
+  {
+    name: "keyword.control.euphoria"
+    match: '''
+      (?x)\\b(
+      	         	and|as
+          	     	|by
+              	 	|case|constant
+               		|deprecate|do
+      	         	|else|elsif|end|enum
+      	         	|for|function
+      	         	|if
+      	         	|loop
+      	         	|not
+      	         	|or
+      	         	|procedure
+      	         	|routine
+      	         	|switch
+      	         	|then|to|type
+      	         	|until
+      	         	|while
+      	         	|xor
+               	)\\b
+    '''
+  }
+  {
+    name: "keyword.jump.euphoria"
+    match: "\\b(abort|break|continue|crash|entry|exit|fallthru|goto|label|return|retry)"
+  }
+  {
+    name: "storage.type.euphoria"
+    match: "\\b(object|sequence|integer|atom)\\b"
+  }
+  {
+    name: "storage.modifier.access-control.euphoria"
+    match: "\\b(override|global|public|export)\\b"
+  }
+  {
+    name: "constant.other.euphoria"
+    match: "\\b[A-Z0-9_]+\\b"
+  }
+  {
+    begin: "\"\"\""
+    name: "string.quoted.triple.euphoria"
+    end: "\"\"\""
+  }
+  {
+    begin: "`"
+    name: "string.quoted.backtick.euphoria"
+    end: "`"
+  }
+  {
+    begin: "\""
+    endCaptures:
+      "0":
+        name: "punctuation.definition.string.end.euphoria"
+    beginCaptures:
+      "0":
+        name: "punctuation.definition.string.begin.euphoria"
+    name: "string.quoted.double.euphoria"
+    patterns: [
+      {
+        include: "#string_escaped_char"
+      }
+    ]
+    end: "\""
+  }
+  {
+    begin: "'"
+    endCaptures:
+      "0":
+        name: "punctuation.definition.string.end.euphoria"
+    beginCaptures:
+      "0":
+        name: "punctuation.definition.string.begin.euphoria"
+    name: "string.quoted.single.euphoria"
+    patterns: [
+      {
+        include: "#string_escaped_char"
+      }
+    ]
+    end: "'"
+  }
+  {
+    begin: "\\s*--\\*\\*"
+    name: "comment.line.eudoc.euphoria"
+    patterns: [
+      {
+        name: "keyword.other.documentation.section.eudoc.euphoria"
+        match: "[A-Za-z0-9\\s]+:\\s*$"
+      }
+      {
+        name: "keyword.other.documentation.bold.eudoc.euphoria"
+        match: "\\*\\*[^*]+\\*\\*"
+      }
+      {
+        name: "keyword.other.documentation.fixed.eudoc.euphoria"
+        match: "\\#\\#[^*]+\\#\\#"
+      }
+      {
+        begin: "\\[\\["
+        name: "keyword.other.documentation.link.eudoc.euphoria"
+        end: "\\]\\]"
+      }
+    ]
+    end: "^\\s*[^-]"
+  }
+  {
+    begin: "/\\*"
+    captures:
+      "0":
+        name: "punctuation.definition.comment.euphoria"
+    name: "comment.block.euphoria"
+    end: "\\*/"
+  }
+  {
+    captures:
+      "1":
+        name: "punctuation.definition.comment.euphoria"
+    name: "comment.line.double-dash.euphoria"
+    match: "(--).*$\\n?"
+  }
+]
+name: "Euphoria"
+scopeName: "source.euphoria"
+fileTypes: [
+  "e"
+  "ex"
+  "exw"
+  "exu"
+]
+repository:
+  string_escaped_char:
+    patterns: [
+      {
+        name: "constant.character.escape.euphoria"
+        match: "\\\\(\\\\|[nrte'\"0?]|[0-3]\\d{2}|[4-7]\\d?|x[a-fA-F0-9]{2}|u[a-fA-F0-9]{4}|U[a-fA-F0-9]{8}|b[0-1]+)"
+      }
+      {
+        name: "invalid.illegal.unknown-escape.euphoria"
+        match: "\\\\."
+      }
+    ]
+firstLineMatch: "^#!/.*\\beui(w)?\\b"

@@ -1,0 +1,111 @@
+".source.euphoria":
+  "Elsdef Statement":
+    prefix: "elsifdef"
+    body: '''
+      elsifdef ${1:DEFINE} then
+      	$0
+    '''
+  "Else If":
+    prefix: "elsif"
+    body: '''
+      elsif ${1:condition} then
+      	$0
+    '''
+  "For Statement":
+    prefix: "for"
+    body: '''
+      for ${1:i} = ${2:1} to ${3:end count} ${4:opts}do
+      	$0
+      end for
+    '''
+  "Foreach Statement":
+    prefix: "foreach"
+    body: '''
+      for ${1:i} = ${2:1} to length(${3:items}) ${opts}do
+      	${4:object} ${5:item} = $3[$1]
+
+      	$0
+      end for
+    '''
+  Function:
+    prefix: "function"
+    body: '''
+      --**
+      -- ${1:one line description of function}
+      --
+      -- Parameters:
+      --
+      -- Returns:
+      --   ${2:return value description}
+
+      ${3:visibility} function ${4:name}(${5:parameters})
+      	$0
+      end function
+
+    '''
+  "Ifdef Statement":
+    prefix: "ifdef"
+    body: '''
+      ifdef ${1:DEFINE} then
+      	$0
+      end ifdef
+    '''
+  "If/End":
+    prefix: "if"
+    body: '''
+      if ${1:condition} then
+      	$0
+      end if
+    '''
+  "Loop Until":
+    prefix: "loop"
+    body: '''
+      loop ${1:opts}do
+      	$0
+
+      	until ${2:condition}
+      end loop
+    '''
+  Procedure:
+    prefix: "procedure"
+    body: '''
+      --**
+      -- ${1:one line description of procedure}
+      --
+      -- Parameters:
+      --
+
+      ${2:visibility} procedure ${3:name}(${4:parameters})
+      	$0
+      end procedure
+
+    '''
+  Type:
+    prefix: "type"
+    body: '''
+      --**
+      -- ${1:one line description of type}
+      --
+      -- Parameters:
+      --   * ##o## - object to test
+      --
+      -- Returns:
+      --   ##TRUE## if ##o## is a ${2:name} type or ##FALSE## if not.
+      --
+
+      ${3:visibility} type $2(object o)
+      	-- Conditions that invalidate `o` as a $2 type
+      	$0
+
+      	-- `o` is a $2
+      	return 1
+      end type
+
+    '''
+  "While Loop":
+    prefix: "while"
+    body: '''
+      while ${1:condition} ${2:opts}do
+      	$0
+      end while
+    '''

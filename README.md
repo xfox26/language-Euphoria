@@ -1,2 +1,3 @@
-# language-Euphoria
-Open Euphoria for Atom
+# language-Euphoria package
+
+OpenEuphoria syntax for Atom
